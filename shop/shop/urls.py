@@ -16,7 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# Settings option 
+from django.conf import settings
+from django.conf.urls.static import static
+# from shopapp.views import product_detail, product_list
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('shopapp/', include('shopapp.urls')),
+    path('shopapp/', include('shopapp.urls', namespace='shopapp')),
+
+    # path('', product_list, name='product_list'),
+    # path('<slug:slug>', product_list, name='product_list_by_category'),
+    # path('<int:id>', product_detail, name='product_detail')
+
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)    
